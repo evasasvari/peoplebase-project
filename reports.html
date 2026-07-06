@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports — HR Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="reports">
+  <div class="app">
+    <aside class="sidebar" id="app-sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="app-topbar"></header>
+      <main class="content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div class="page-header__text">
+            <h1 class="h4">Reports</h1>
+            <p class="p-md page-header__desc">Simple HR insights across leave and headcount.</p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--outline" id="exportBtn">
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card">
+          <div class="card__body">
+            <div class="toolbar">
+              <span class="select">
+                <select id="fPeriod" aria-label="Time period">
+                  <option>Last 6 months</option>
+                  <option>This quarter</option>
+                  <option>This year</option>
+                </select>
+              </span>
+              <span class="select">
+                <select id="fDept" aria-label="Department">
+                  <option value="">All departments</option>
+                  <option>Engineering</option>
+                  <option>Product</option>
+                  <option>Design</option>
+                  <option>Marketing</option>
+                  <option>Operations</option>
+                </select>
+              </span>
+              <div class="toolbar__spacer"></div>
+              <span class="p-sm text-placeholder">Showing company-wide data</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top row: Pie + Bar -->
+        <section style="display:grid;grid-template-columns:1fr 1fr;gap:var(--scale-600)">
+          <!-- Pie / Chart Circle: Leave Types -->
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title-group">
+                <h2 class="h6">Leave Types</h2>
+                <span class="p-sm text-placeholder">Share of requests by type</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="donut-wrap">
+                <div class="donut">
+                  <svg viewBox="0 0 160 160" role="img" aria-label="Pie chart of leave types">
+                    <circle cx="80" cy="80" r="64" fill="none" stroke="var(--visual-1)" stroke-width="24" stroke-dasharray="180.9 221.2" stroke-dashoffset="0"/>
+                    <circle cx="80" cy="80" r="64" fill="none" stroke="var(--visual-2)" stroke-width="24" stroke-dasharray="88.5 313.6" stroke-dashoffset="-180.9"/>
+                    <circle cx="80" cy="80" r="64" fill="none" stroke="var(--visual-3)" stroke-width="24" stroke-dasharray="60.3 341.8" stroke-dashoffset="-269.4"/>
+                    <circle cx="80" cy="80" r="64" fill="none" stroke="var(--visual-4)" stroke-width="24" stroke-dasharray="48.3 353.8" stroke-dashoffset="-329.7"/>
+                    <circle cx="80" cy="80" r="64" fill="none" stroke="var(--visual-5)" stroke-width="24" stroke-dasharray="24.1 378" stroke-dashoffset="-378"/>
+                  </svg>
+                  <div class="donut__center">
+                    <span class="donut__total">324</span>
+                    <span class="donut__caption">Requests</span>
+                  </div>
+                </div>
+                <div class="donut-legend">
+                  <div class="donut-legend__row"><span class="legend-swatch" style="background:var(--visual-1)"></span>Annual leave<span class="donut-legend__count">45%</span></div>
+                  <div class="donut-legend__row"><span class="legend-swatch" style="background:var(--visual-2)"></span>Sick leave<span class="donut-legend__count">22%</span></div>
+                  <div class="donut-legend__row"><span class="legend-swatch" style="background:var(--visual-3)"></span>Personal<span class="donut-legend__count">15%</span></div>
+                  <div class="donut-legend__row"><span class="legend-swatch" style="background:var(--visual-4)"></span>Parental<span class="donut-legend__count">12%</span></div>
+                  <div class="donut-legend__row"><span class="legend-swatch" style="background:var(--visual-5)"></span>Unpaid<span class="donut-legend__count">6%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bar: Monthly Leave Requests -->
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title-group">
+                <h2 class="h6">Monthly Leave Requests</h2>
+                <span class="p-sm text-placeholder">Total requests per month</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <div class="chart" role="img" aria-label="Bar chart of monthly leave requests, scale 0 to 40. Jan 22, Feb 31, Mar 26, Apr 19, May 35, Jun 28.">
+                <div class="chart__yaxis" aria-hidden="true"><span>40</span><span>30</span><span>20</span><span>10</span><span>0</span></div>
+                <div class="chart__main">
+                  <div class="plot-area">
+                    <div class="gridlines"><span></span><span></span><span></span><span></span><span></span></div>
+                    <div class="bars-row">
+                      <div class="bar-col"><div class="bar bar--approved" style="height:55%"><span class="bar__val">22</span></div></div>
+                      <div class="bar-col"><div class="bar bar--approved" style="height:77.5%"><span class="bar__val">31</span></div></div>
+                      <div class="bar-col"><div class="bar bar--approved" style="height:65%"><span class="bar__val">26</span></div></div>
+                      <div class="bar-col"><div class="bar bar--approved" style="height:47.5%"><span class="bar__val">19</span></div></div>
+                      <div class="bar-col"><div class="bar bar--approved" style="height:87.5%"><span class="bar__val">35</span></div></div>
+                      <div class="bar-col"><div class="bar bar--approved" style="height:70%"><span class="bar__val">28</span></div></div>
+                    </div>
+                  </div>
+                  <div class="month-row"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Department Summary Table -->
+        <div class="card">
+          <div class="card__header">
+            <div class="card__title-group">
+              <h2 class="h6">Department Summary</h2>
+              <span class="p-sm text-placeholder">Leave usage by department</span>
+            </div>
+          </div>
+          <div class="card__body" style="padding-top:var(--scale-200)">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Department</th>
+                  <th scope="col">Employees</th>
+                  <th scope="col">Vacation Days Used</th>
+                  <th scope="col">Average Leave</th>
+                  <th scope="col">Utilization</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="avatar-label__name">Engineering</span></td><td>64</td><td>210</td><td>4.2 days</td><td><span class="badge badge--warning">High</span></td></tr>
+                <tr><td><span class="avatar-label__name">Operations</span></td><td>50</td><td>180</td><td>3.6 days</td><td><span class="badge badge--success">Normal</span></td></tr>
+                <tr><td><span class="avatar-label__name">Product</span></td><td>42</td><td>150</td><td>3.6 days</td><td><span class="badge badge--success">Normal</span></td></tr>
+                <tr><td><span class="avatar-label__name">Marketing</span></td><td>24</td><td>96</td><td>4.0 days</td><td><span class="badge badge--warning">High</span></td></tr>
+                <tr><td><span class="avatar-label__name">Design</span></td><td>16</td><td>60</td><td>3.8 days</td><td><span class="badge badge--success">Normal</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('exportBtn').addEventListener('click', function () {
+      showSnackbar({ status: 'default', title: 'Export report', text: 'Export is a placeholder in the MVP.' });
+    });
+  </script>
+</body>
+</html>

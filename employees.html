@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employees — HR Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="employees">
+  <div class="app">
+    <aside class="sidebar" id="app-sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="app-topbar"></header>
+      <main class="content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div class="page-header__text">
+            <h1 class="h4">Employees</h1>
+            <p class="p-md page-header__desc">Browse, search and manage everyone at Peoplebase.</p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--primary" id="addEmployeeBtn">
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Employee
+            </button>
+          </div>
+        </div>
+
+        <!-- Table card -->
+        <div class="card">
+          <!-- Toolbar: search + filters -->
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <label class="search">
+                <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="search" id="empSearch" placeholder="Search by name, title, manager…" aria-label="Search employees" />
+              </label>
+              <button class="btn-icon btn-icon--primary" id="filterBtn" aria-label="Filter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+              </button>
+              <div class="toolbar__spacer"></div>
+              <span class="select">
+                <select id="deptFilter" aria-label="Filter by department">
+                  <option value="">All departments</option>
+                  <option>Engineering</option>
+                  <option>Product</option>
+                  <option>Design</option>
+                  <option>Marketing</option>
+                  <option>Operations</option>
+                </select>
+              </span>
+              <span class="select">
+                <select id="statusFilter" aria-label="Filter by status">
+                  <option value="">All statuses</option>
+                  <option>Active</option>
+                  <option>On Leave</option>
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="card__body">
+            <table class="table" id="empTable">
+              <thead>
+                <tr>
+                  <th scope="col" style="width:48px" aria-label="Avatar"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Job Title</th>
+                  <th scope="col">Manager</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="empBody">
+                <!-- rows injected by script -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <span class="pagination__info" id="pageInfo">Showing 1–10 of 198</span>
+            <div class="pagination__pages">
+              <button class="page-btn" disabled aria-label="Previous page">‹</button>
+              <button class="page-btn page-btn--active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">…</button>
+              <button class="page-btn">20</button>
+              <button class="page-btn" aria-label="Next page">›</button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Employee dataset (a page of the 198). Rows render from here so search/filter is instant.
+    var EMPLOYEES = [
+      { name: 'Ava Thompson',    dept: 'Engineering', title: 'Frontend Engineer',    mgr: 'Daniel Kim',   status: 'Active',  av: 'a2' },
+      { name: 'Noah Johnson',    dept: 'Operations',  title: 'Operations Analyst',   mgr: 'Grace Park',   status: 'On Leave',av: 'a3' },
+      { name: 'Emma Williams',   dept: 'Product',     title: 'Product Manager',      mgr: 'Liam Chen',    status: 'Active',  av: 'a4' },
+      { name: 'Daniel Kim',      dept: 'Engineering', title: 'Engineering Lead',     mgr: 'Olivia Rhye',  status: 'Active',  av: 'a1' },
+      { name: 'Grace Park',      dept: 'Operations',  title: 'Operations Manager',   mgr: 'Olivia Rhye',  status: 'Active',  av: 'a2' },
+      { name: 'Liam Chen',       dept: 'Product',     title: 'Head of Product',      mgr: 'Olivia Rhye',  status: 'Active',  av: 'a3' },
+      { name: 'Sofia Martinez',  dept: 'Design',      title: 'Product Designer',     mgr: 'Maya Patel',   status: 'Active',  av: 'a4' },
+      { name: 'Maya Patel',      dept: 'Design',      title: 'Design Lead',          mgr: 'Olivia Rhye',  status: 'Active',  av: 'a1' },
+      { name: 'Ethan Brown',     dept: 'Marketing',   title: 'Marketing Specialist', mgr: 'Chloe Adams',  status: 'On Leave',av: 'a2' },
+      { name: 'Chloe Adams',     dept: 'Marketing',   title: 'Marketing Manager',    mgr: 'Olivia Rhye',  status: 'Active',  av: 'a3' },
+      { name: 'Lucas Garcia',    dept: 'Engineering', title: 'Backend Engineer',     mgr: 'Daniel Kim',   status: 'Active',  av: 'a4' },
+      { name: 'Mia Wilson',      dept: 'Product',     title: 'Product Analyst',      mgr: 'Liam Chen',    status: 'Active',  av: 'a1' }
+    ];
+
+    function initials(name) { return name.split(' ').map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase(); }
+    function statusBadge(s) {
+      var cls = s === 'Active' ? 'badge--success' : s === 'On Leave' ? 'badge--warning' : 'badge--default';
+      return '<span class="badge ' + cls + ' badge--dot">' + s + '</span>';
+    }
+
+    var body = document.getElementById('empBody');
+    function render(list) {
+      body.innerHTML = list.map(function (e) {
+        return '<tr class="row--clickable" data-nav="employee" tabindex="0">' +
+          '<td><span class="avatar avatar--sm avatar--' + e.av + '">' + initials(e.name) + '</span></td>' +
+          '<td><span class="avatar-label__name">' + e.name + '</span></td>' +
+          '<td>' + e.dept + '</td>' +
+          '<td>' + e.title + '</td>' +
+          '<td>' + e.mgr + '</td>' +
+          '<td>' + statusBadge(e.status) + '</td>' +
+        '</tr>';
+      }).join('');
+      // rewire keyboard/nav for freshly rendered rows
+      body.querySelectorAll('[data-nav]').forEach(function (el) {
+        el.addEventListener('click', function () { location.href = 'employee-details.html'; });
+        el.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); location.href = 'employee-details.html'; } });
+      });
+      document.getElementById('pageInfo').textContent = 'Showing 1–' + list.length + ' of 198';
+    }
+
+    // Instant client-side search + filters (no backend)
+    var search = document.getElementById('empSearch');
+    var dept = document.getElementById('deptFilter');
+    var statusSel = document.getElementById('statusFilter');
+    function applyFilters() {
+      var q = search.value.trim().toLowerCase();
+      var d = dept.value, s = statusSel.value;
+      render(EMPLOYEES.filter(function (e) {
+        var matchesQ = !q || (e.name + ' ' + e.title + ' ' + e.mgr + ' ' + e.dept).toLowerCase().indexOf(q) !== -1;
+        return matchesQ && (!d || e.dept === d) && (!s || e.status === s);
+      }));
+    }
+    [search, dept, statusSel].forEach(function (el) { el.addEventListener('input', applyFilters); });
+    document.getElementById('filterBtn').addEventListener('click', function () {
+      showSnackbar({ status: 'default', title: 'Advanced filters', text: 'This is a placeholder in the MVP.' });
+    });
+    document.getElementById('addEmployeeBtn').addEventListener('click', function () {
+      showSnackbar({ status: 'default', title: 'Add Employee', text: 'Form coming soon — placeholder action.' });
+    });
+
+    render(EMPLOYEES);
+  </script>
+</body>
+</html>

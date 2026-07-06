@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Off — HR Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="time-off">
+  <div class="app">
+    <aside class="sidebar" id="app-sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="app-topbar"></header>
+      <main class="content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div class="page-header__text">
+            <h1 class="h4">Time Off</h1>
+            <p class="p-md page-header__desc">Manage leave requests and monitor absences.</p>
+          </div>
+          <div class="page-header__actions">
+            <button class="btn btn--primary" id="requestBtn">
+              <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Request Time Off
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabbar" role="tablist">
+          <button class="tabitem tabitem--selected" role="tab" aria-selected="true">Requests</button>
+          <button class="tabitem" role="tab" aria-selected="false" disabled>Calendar</button>
+          <button class="tabitem" role="tab" aria-selected="false" disabled>Balance</button>
+        </div>
+
+        <!-- Requests panel -->
+        <div class="card">
+          <div class="card__body" style="padding-bottom:0">
+            <div class="toolbar">
+              <span class="select">
+                <select id="fStatus" aria-label="Filter by status">
+                  <option value="">All statuses</option>
+                  <option>Pending</option>
+                  <option>Approved</option>
+                  <option>Rejected</option>
+                </select>
+              </span>
+              <span class="select">
+                <select id="fType" aria-label="Filter by leave type">
+                  <option value="">All leave types</option>
+                  <option>Annual leave</option>
+                  <option>Sick leave</option>
+                  <option>Personal</option>
+                  <option>Parental leave</option>
+                  <option>Unpaid leave</option>
+                </select>
+              </span>
+              <span class="select">
+                <select id="fRange" aria-label="Filter by date range">
+                  <option value="">Any date</option>
+                  <option>This month</option>
+                  <option>Last 30 days</option>
+                  <option>This quarter</option>
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="card__body">
+            <table class="table" id="leaveTable">
+              <thead>
+                <tr>
+                  <th scope="col">Employee</th>
+                  <th scope="col">Leave Type</th>
+                  <th scope="col">Dates</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="leaveBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ================= Leave Request Modal ================= -->
+  <div class="modal-overlay" id="leaveModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="leaveModalTitle">
+      <div class="modal__header">
+        <div class="modal__title-group">
+          <h2 class="h6" id="leaveModalTitle">Request Time Off</h2>
+          <span class="p-sm text-placeholder">Submit a new leave request for approval.</span>
+        </div>
+        <button class="btn-icon modal__close" id="modalClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="leaveForm">
+        <div class="modal__body">
+          <div class="field-group">
+            <label class="field-label field-label--required" for="mType">Leave Type</label>
+            <span class="select" style="display:block">
+              <select id="mType" required>
+                <option value="">Select a type…</option>
+                <option>Annual leave</option>
+                <option>Sick leave</option>
+                <option>Personal</option>
+                <option>Parental leave</option>
+                <option>Unpaid leave</option>
+              </select>
+            </span>
+          </div>
+
+          <div class="form-row">
+            <div class="field-group">
+              <label class="field-label field-label--required" for="mStart">Start Date</label>
+              <input class="input" type="date" id="mStart" required />
+            </div>
+            <div class="field-group">
+              <label class="field-label field-label--required" for="mEnd">End Date</label>
+              <input class="input" type="date" id="mEnd" required />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="mReason">Reason</label>
+            <textarea class="textarea" id="mReason" placeholder="Add an optional note for your manager…"></textarea>
+            <span class="hint">Optional — helps your manager review the request.</span>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" id="mInformed" required />
+            <span class="checkbox__box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>I have informed my manager.</span>
+          </label>
+        </div>
+
+        <div class="modal__footer">
+          <button type="button" class="btn btn--outline" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn btn--primary" id="submitReq">Submit Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    var LEAVE = [
+      { name: 'Ava Thompson',   av: 'a2', type: 'Annual leave',   dates: 'May 22 – May 24', dur: '3 days',  status: 'Pending' },
+      { name: 'Noah Johnson',   av: 'a3', type: 'Sick leave',     dates: 'May 23',          dur: '1 day',   status: 'Approved' },
+      { name: 'Emma Williams',  av: 'a4', type: 'Annual leave',   dates: 'May 25 – May 28', dur: '4 days',  status: 'Pending' },
+      { name: 'Daniel Kim',     av: 'a1', type: 'Parental leave', dates: 'Jun 01 – Jun 14', dur: '10 days', status: 'Approved' },
+      { name: 'Grace Park',     av: 'a2', type: 'Unpaid leave',   dates: 'Jun 03',          dur: '1 day',   status: 'Rejected' },
+      { name: 'Ethan Brown',    av: 'a3', type: 'Sick leave',     dates: 'Jun 05 – Jun 06', dur: '2 days',  status: 'Approved' },
+      { name: 'Sofia Martinez', av: 'a4', type: 'Personal',       dates: 'Jun 10',          dur: '1 day',   status: 'Pending' }
+    ];
+    function initials(n) { return n.split(' ').map(function (p) { return p[0]; }).join('').slice(0, 2).toUpperCase(); }
+    function statusBadge(s) {
+      var cls = s === 'Approved' ? 'badge--success' : s === 'Pending' ? 'badge--warning' : 'badge--error';
+      return '<span class="badge ' + cls + ' badge--dot">' + s + '</span>';
+    }
+    var body = document.getElementById('leaveBody');
+    function render(list) {
+      body.innerHTML = list.map(function (r) {
+        return '<tr class="row--clickable" tabindex="0" data-row>' +
+          '<td><div class="avatar-label"><span class="avatar avatar--sm avatar--' + r.av + '">' + initials(r.name) + '</span><span class="avatar-label__name">' + r.name + '</span></div></td>' +
+          '<td>' + r.type + '</td>' +
+          '<td class="cell-date">' + r.dates + '</td>' +
+          '<td>' + r.dur + '</td>' +
+          '<td>' + statusBadge(r.status) + '</td>' +
+        '</tr>';
+      }).join('');
+      body.querySelectorAll('[data-row]').forEach(function (el) {
+        el.addEventListener('click', function () { showSnackbar({ status: 'default', title: 'Request details', text: 'Row detail view is a placeholder.' }); });
+      });
+    }
+    // Filters
+    var fs = document.getElementById('fStatus'), ft = document.getElementById('fType');
+    function applyFilters() {
+      render(LEAVE.filter(function (r) { return (!fs.value || r.status === fs.value) && (!ft.value || r.type === ft.value); }));
+    }
+    [fs, ft].forEach(function (e) { e.addEventListener('change', applyFilters); });
+    render(LEAVE);
+
+    // Modal control
+    var modal = document.getElementById('leaveModal');
+    function openModal() { modal.hidden = false; document.getElementById('mType').focus(); }
+    function closeModal() { modal.hidden = true; document.getElementById('leaveForm').reset(); resetSubmit(); }
+    document.getElementById('requestBtn').addEventListener('click', openModal);
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalCancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+    // Submit: Loader -> Success Snackbar -> modal closes
+    var submitBtn = document.getElementById('submitReq');
+    function resetSubmit() { submitBtn.disabled = false; submitBtn.innerHTML = 'Submit Request'; }
+    document.getElementById('leaveForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span> Submitting…';
+      setTimeout(function () {
+        closeModal();
+        showSnackbar({ status: 'success', title: 'Request submitted', text: 'Your time-off request was sent for approval.' });
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

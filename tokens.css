@@ -1,0 +1,194 @@
+/* ============================================================================
+   HR Management Platform — Design Tokens
+   Faithful CSS translation of the Figma "hr-platform-tokens-and-variants" system.
+   Only SEMANTIC tokens are meant to be consumed in UI. Scale/* are raw primitives
+   that Border Width / Border Radius alias onto — do not use Scale directly in UI.
+   ============================================================================ */
+
+:root {
+  /* --- 3. Scale (primitive numeric ramp) ------------------------------------ */
+  --scale-0: 0px;
+  --scale-25: 1px;
+  --scale-50: 2px;
+  --scale-100: 4px;
+  --scale-200: 8px;
+  --scale-300: 12px;
+  --scale-400: 16px;
+  --scale-500: 20px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-800: 32px;
+  --scale-900: 40px;
+
+  /* --- 4. Border Width (alias -> Scale) ------------------------------------- */
+  --border-width-none: var(--scale-0);   /* 0 */
+  --border-width-sm: var(--scale-25);     /* 1 - default hairline */
+  --border-width-md: var(--scale-50);     /* 2 - focus / selected */
+  --border-width-lg: var(--scale-100);    /* 4 - strong accent */
+
+  /* --- 5. Border Radius (alias -> Scale) ------------------------------------ */
+  --border-radius-none: var(--scale-0);   /* 0 */
+  --border-radius-sm: var(--scale-50);    /* 2 - small chips/inputs */
+  --border-radius-md: var(--scale-100);   /* 4 - default container */
+  --border-radius-lg: var(--scale-200);   /* 8 - cards, modals */
+  --border-radius-round: var(--scale-900);/* 40 - pills / circles */
+
+  /* --- 1/2. Font family + weight primitives --------------------------------- */
+  --font-family-headings: "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* --- 6. Responsive typography — DESKTOP (size / line-height / spacing) ----- */
+  --h1-size: 60px;   --h1-line: 72px;   --h1-space: 64px;
+  --h2-size: 48px;   --h2-line: 56px;   --h2-space: 48px;
+  --h3-size: 40px;   --h3-line: 48px;   --h3-space: 40px;
+  --h4-size: 32px;   --h4-line: 40px;   --h4-space: 30px;
+  --h5-size: 24px;   --h5-line: 28px;   --h5-space: 24px;
+  --h6-size: 20px;   --h6-line: 24px;   --h6-space: 20px;
+  --p-xsm-size: 12px; --p-xsm-line: 16px; --p-xsm-space: 14px;
+  --p-sm-size: 14px;  --p-sm-line: 16px;  --p-sm-space: 16px;
+  --p-md-size: 16px;  --p-md-line: 20px;  --p-md-space: 20px;
+  --p-lg-size: 20px;  --p-lg-line: 28px;  --p-lg-space: 20px; /* lh raised from token quirk 16 -> 28 for wrapping copy */
+
+  /* ==========================================================================
+     COLORS — LIGHT (default theme)
+     Five semantic families: Surface / Text / Icons / Border / Visuals.
+     ========================================================================== */
+
+  /* Surface — fills / backgrounds */
+  --surface-page: #ffffff;
+  --surface-default: #ffffff;
+  --surface-action: #1f4fd1;
+  --surface-action-hover: #193fa7;
+  --surface-action-hover-light: #e9eefb;
+  --surface-success: #e8f6ed;
+  --surface-error: #fceaea;
+  --surface-warning: #fef6e7;
+  --surface-disabled: #ececec;
+  --surface-action-accent: #71d7e6;
+  --surface-action-hover-accent: #5aacb8;
+  --surface-action-hover-light-accent: #f1fbfd;
+
+  /* Text */
+  --text-heading: #17181a;
+  --text-body: #222326;
+  --text-action: #1f4fd1;
+  --text-action-hover: #193fa7;
+  --text-action-placeholder: #4c72da;
+  --text-on-action: #ececec;
+  --text-disabled: #393b40;
+  --text-placeholder: #616266;
+  --text-warning: #f59e0b;
+  --text-success: #16a34a;
+  --text-error: #dc2626;
+  --text-action-accent: #71d7e6;
+  --text-link-accent: #71d7e6;
+  --text-body-light: #88898c;
+
+  /* Icons */
+  --icon-default: #222326;
+  --icon-action: #1f4fd1;
+  --icon-action-hover: #193fa7;
+  --icon-on-action: #ececec;
+  --icon-disabled: #393b40;
+  --icon-warning: #f59e0b;
+  --icon-success: #16a34a;
+  --icon-error: #dc2626;
+  --icon-action-accent: #71d7e6;
+
+  /* Border */
+  --border-default: #ececec;
+  --border-success: #a2dab7;
+  --border-error: #f1a8a8;
+  --border-warning: #fbd89d;
+  --border-disabled: #d7d8d9;
+  --border-action: #1f4fd1;
+  --border-action-hover: #193fa7;
+  --border-focus: #1f4fd1;
+  --border-action-accent: #71d7e6;
+  --border-focus-accent: #71d7e6;
+
+  /* Visuals — charts only, in order 1st -> 5th, Other */
+  --visual-1: #1f4fd1;
+  --visual-2: #71d7e6;
+  --visual-3: #6fa8f7;
+  --visual-4: #a7e9c6;
+  --visual-5: #a8b6f8;
+  --visual-other: #ececec;
+
+  /* Elevation — not a Figma token; subtle enterprise shadow for cards */
+  --shadow-card: 0 1px 2px rgba(23, 24, 26, 0.04), 0 1px 3px rgba(23, 24, 26, 0.06);
+  --shadow-pop: 0 4px 12px rgba(23, 24, 26, 0.10);
+
+  /* App background — matches the Figma page surface (white). */
+  --surface-canvas: #ffffff;
+
+  /* Max content width for the centered app shell (desktop-first, ~1440 target) */
+  --app-max-width: 1600px;
+}
+
+/* ==========================================================================
+   COLORS — DARK theme. Switch the theme, not the token.
+   ========================================================================== */
+[data-theme="dark"] {
+  --surface-page: #17181a;
+  --surface-default: #17181a;
+  --surface-action: #1f4fd1;
+  --surface-action-hover: #4c72da;
+  --surface-action-hover-light: #0c2054;
+  --surface-success: #09411e;
+  --surface-error: #580f0f;
+  --surface-warning: #623f04;
+  --surface-disabled: #222326;
+  --surface-action-accent: #71d7e6;
+  --surface-action-hover-accent: #8ddfeb;
+  --surface-action-hover-light-accent: #2d565c;
+
+  --text-heading: #ececec;
+  --text-body: #d7d8d9;
+  --text-action: #1f4fd1;
+  --text-action-hover: #4c72da;
+  --text-action-placeholder: #193fa7;
+  --text-on-action: #17181a;
+  --text-disabled: #222326;
+  --text-placeholder: #2e2f33;
+  --text-warning: #f7b13c;
+  --text-success: #45b56e;
+  --text-error: #e35151;
+  --text-action-accent: #71d7e6;
+  --text-link-accent: #71d7e6;
+
+  --icon-default: #616266;
+  --icon-action: #1f4fd1;
+  --icon-action-hover: #4c72da;
+  --icon-on-action: #17181a;
+  --icon-disabled: #2e2f33;
+  --icon-warning: #f7b13c;
+  --icon-success: #45b56e;
+  --icon-error: #e35151;
+  --icon-action-accent: #71d7e6;
+
+  /* Border/default equals the dark surface (#17181a) by token design, so it
+     disappears on a default surface. Use a slightly stronger divider in dark
+     mode per the tokens skill's guidance. */
+  --border-default: #2e2f33;
+  --border-success: #12823b;
+  --border-error: #b01e1e;
+  --border-warning: #c47e09;
+  --border-disabled: #222326;
+  --border-action: #1f4fd1;
+  --border-action-hover: #4c72da;
+  --border-focus: #1f4fd1;
+  --border-action-accent: #71d7e6;
+  --border-focus-accent: #71d7e6;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.40);
+  --shadow-pop: 0 4px 12px rgba(0, 0, 0, 0.50);
+
+  /* Dark app background — matches the dark page surface. */
+  --surface-canvas: #17181a;
+  --text-body-light: #88898c;
+}

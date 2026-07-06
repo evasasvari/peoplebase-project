@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Details — HR Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="employees">
+  <div class="app">
+    <aside class="sidebar" id="app-sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="app-topbar"></header>
+      <main class="content">
+
+        <!-- Back link -->
+        <a href="employees.html" class="link" style="align-self:flex-start">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Employees
+        </a>
+
+        <!-- Profile header -->
+        <div class="card">
+          <div class="card__body">
+            <div class="page-header" style="align-items:center">
+              <div class="profile-head">
+                <span class="avatar avatar--lg avatar--a2" style="width:64px;height:64px;font-size:var(--h6-size)">AT</span>
+                <div class="profile-head__info">
+                  <div class="profile-head__name">Ava Thompson</div>
+                  <div class="profile-head__role">Frontend Engineer · Engineering</div>
+                  <div style="margin-top:var(--scale-100)"><span class="badge badge--success badge--dot">Active</span></div>
+                </div>
+              </div>
+              <div class="page-header__actions">
+                <button class="btn btn--outline" id="editBtn">
+                  <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  Edit Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="details-grid">
+
+          <!-- Left column -->
+          <div style="display:flex;flex-direction:column;gap:var(--scale-600)">
+            <div class="card">
+              <div class="card__header"><h2 class="h6">Personal Information</h2></div>
+              <div class="card__body">
+                <div class="dl">
+                  <div class="dl__row"><span class="dl__term">Email</span><span class="dl__desc">ava.thompson@peoplebase.co</span></div>
+                  <div class="dl__row"><span class="dl__term">Phone</span><span class="dl__desc">+1 (415) 555-0138</span></div>
+                  <div class="dl__row"><span class="dl__term">Location</span><span class="dl__desc">San Francisco, CA</span></div>
+                  <div class="dl__row"><span class="dl__term">Birthday</span><span class="dl__desc">Aug 15, 1993</span></div>
+                  <div class="dl__row"><span class="dl__term">Hire Date</span><span class="dl__desc">Mar 14, 2022</span></div>
+                  <div class="dl__row"><span class="dl__term">Manager</span><span class="dl__desc">Daniel Kim</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__header"><h2 class="h6">Time Off Balance</h2></div>
+              <div class="card__body">
+                <div class="stat-grid">
+                  <div class="stat"><span class="stat__value">12</span><span class="stat__label">Vacation days</span><span class="stat__meta">of 20</span></div>
+                  <div class="stat"><span class="stat__value">5</span><span class="stat__label">Sick leave</span><span class="stat__meta">of 10</span></div>
+                  <div class="stat"><span class="stat__value">3</span><span class="stat__label">Personal days</span><span class="stat__meta">of 5</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: tabs -->
+          <div class="card">
+            <div class="card__body" style="padding-bottom:0">
+              <div class="tabbar" role="tablist">
+                <button class="tabitem tabitem--selected" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+                <button class="tabitem" role="tab" aria-selected="false" data-tab="job">Job</button>
+                <button class="tabitem" role="tab" aria-selected="false" data-tab="timeoff">Time Off</button>
+                <button class="tabitem" role="tab" aria-selected="false" data-tab="activity">Activity</button>
+              </div>
+            </div>
+            <div class="card__body">
+              <!-- Overview panel -->
+              <section class="tab-panel" data-panel="overview">
+                <h3 class="p-md weight-semibold text-heading" style="margin:0 0 var(--scale-400)">Recent Activity</h3>
+                <div class="timeline">
+                  <div class="timeline__item">
+                    <span class="timeline__dot"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.0588 9.02L14.9788 9.94L5.91878 19H4.99878V18.08L14.0588 9.02ZM17.6588 3C17.4088 3 17.1488 3.1 16.9588 3.29L15.1288 5.12L18.8788 8.87L20.7088 7.04C21.0988 6.65 21.0988 6.02 20.7088 5.63L18.3688 3.29C18.1688 3.09 17.9188 3 17.6588 3ZM14.0588 6.19L2.99878 17.25V21H6.74878L17.8088 9.94L14.0588 6.19Z" fill="#1F4FD1"/></svg></span>
+                    <div class="timeline__content"><span class="timeline__title">Profile updated</span><span class="timeline__time">Jul 2, 2026 · 2:14 PM</span></div>
+                  </div>
+                  <div class="timeline__item">
+                    <span class="timeline__dot"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.79995 15.9L4.59995 11.7L3.19995 13.1L8.79995 18.7L20.8 6.69999L19.4 5.29999L8.79995 15.9Z" fill="#16A34A"/></svg></span>
+                    <div class="timeline__content"><span class="timeline__title">Leave approved — Annual leave, May 22–24</span><span class="timeline__time">Jun 28, 2026 · 9:03 AM</span></div>
+                  </div>
+                  <div class="timeline__item">
+                    <span class="timeline__dot"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 15V18H6V15H4V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V15H18ZM7 9L8.41 10.41L11 7.83V16H13V7.83L15.59 10.41L17 9L12 4L7 9Z" fill="#71D7E6"/></svg></span>
+                    <div class="timeline__content"><span class="timeline__title">Document uploaded — Q2 performance review</span><span class="timeline__time">Jun 20, 2026 · 4:40 PM</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Placeholder panels -->
+              <section class="tab-panel" data-panel="job" hidden>
+                <div class="tab-placeholder"><p class="p-md">The <strong>Job</strong> tab is a placeholder in this MVP.</p></div>
+              </section>
+              <section class="tab-panel" data-panel="timeoff" hidden>
+                <div class="tab-placeholder"><p class="p-md">The <strong>Time Off</strong> tab is a placeholder in this MVP.</p></div>
+              </section>
+              <section class="tab-panel" data-panel="activity" hidden>
+                <div class="tab-placeholder"><p class="p-md">The <strong>Activity</strong> tab is a placeholder in this MVP.</p></div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Tab switching (Overview implemented; others placeholders)
+    var tabs = document.querySelectorAll('.tabitem');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('tabitem--selected'); x.setAttribute('aria-selected', 'false'); });
+        t.classList.add('tabitem--selected'); t.setAttribute('aria-selected', 'true');
+        var target = t.getAttribute('data-tab');
+        document.querySelectorAll('.tab-panel').forEach(function (p) {
+          p.hidden = p.getAttribute('data-panel') !== target;
+        });
+      });
+    });
+    document.getElementById('editBtn').addEventListener('click', function () {
+      showSnackbar({ status: 'default', title: 'Edit Profile', text: 'Editing is a placeholder in the MVP.' });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — HR Management Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="settings">
+  <div class="app">
+    <aside class="sidebar" id="app-sidebar"></aside>
+    <div class="main">
+      <header class="topbar" id="app-topbar"></header>
+      <main class="content">
+
+        <!-- Page header -->
+        <div class="page-header">
+          <div class="page-header__text">
+            <h1 class="h4">Settings</h1>
+            <p class="p-md page-header__desc">Manage basic application settings.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Left: settings navigation -->
+          <nav class="settings-nav card" style="padding:var(--scale-300)" aria-label="Settings sections">
+            <button class="settings-nav__item settings-nav__item--active">General</button>
+            <button class="settings-nav__item" disabled>Notifications</button>
+            <button class="settings-nav__item" disabled>Departments</button>
+            <button class="settings-nav__item" disabled>Time Off Policies</button>
+            <button class="settings-nav__item" disabled>Roles &amp; Permissions</button>
+          </nav>
+
+          <!-- Right: General settings form -->
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title-group">
+                <h2 class="h6">General</h2>
+                <span class="p-sm text-placeholder">Company-wide preferences.</span>
+              </div>
+            </div>
+            <div class="card__body">
+              <form class="form-section" id="settingsForm">
+                <div class="field-group">
+                  <label class="field-label" for="companyName">Company Name</label>
+                  <input class="input" id="companyName" type="text" value="Peoplebase" />
+                </div>
+
+                <div class="form-row">
+                  <div class="field-group">
+                    <label class="field-label" for="tz">Time Zone</label>
+                    <span class="select" style="display:block">
+                      <select id="tz">
+                        <option>(GMT-08:00) Pacific Time</option>
+                        <option>(GMT-05:00) Eastern Time</option>
+                        <option>(GMT+00:00) UTC</option>
+                        <option>(GMT+01:00) Central European Time</option>
+                      </select>
+                    </span>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="dateFmt">Date Format</label>
+                    <span class="select" style="display:block">
+                      <select id="dateFmt">
+                        <option>MM/DD/YYYY</option>
+                        <option>DD/MM/YYYY</option>
+                        <option>YYYY-MM-DD</option>
+                      </select>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="field-group">
+                    <label class="field-label" for="firstDay">First Day of Week</label>
+                    <span class="select" style="display:block">
+                      <select id="firstDay">
+                        <option>Monday</option>
+                        <option>Sunday</option>
+                      </select>
+                    </span>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="lang">Language</label>
+                    <span class="select" style="display:block">
+                      <select id="lang">
+                        <option>English (US)</option>
+                        <option>English (UK)</option>
+                        <option>Español</option>
+                        <option>Français</option>
+                      </select>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Instant toggles (Switch) -->
+                <div>
+                  <div class="setting-row">
+                    <div class="setting-row__text">
+                      <span class="setting-row__title">Notification Preferences</span>
+                      <span class="setting-row__desc">Email me about new leave requests and approvals.</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" id="notifPref" checked />
+                      <span class="switch__track"></span>
+                    </label>
+                  </div>
+
+                  <div class="setting-row">
+                    <div class="setting-row__text">
+                      <span class="setting-row__title">Theme</span>
+                      <span class="setting-row__desc">Switch between light and dark appearance.</span>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" id="themeToggle" />
+                      <span class="switch__track"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div style="display:flex;justify-content:flex-end">
+                  <button type="submit" class="btn btn--primary">
+                    <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Theme switch toggles the whole app theme instantly and persists it,
+    // so dark mode stays across pages until changed again.
+    var themeToggle = document.getElementById('themeToggle');
+    var savedTheme = 'light';
+    try { savedTheme = localStorage.getItem('pb-theme') || 'light'; } catch (e) {}
+    themeToggle.checked = savedTheme === 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.addEventListener('change', function () {
+      var theme = themeToggle.checked ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('pb-theme', theme); } catch (e) {}
+    });
+    // Save -> Snackbar
+    document.getElementById('settingsForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      showSnackbar({ status: 'success', title: 'Changes saved', text: 'Your settings have been updated.' });
+    });
+  </script>
+</body>
+</html>
